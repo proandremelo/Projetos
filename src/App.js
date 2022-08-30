@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Search from './pages/Search';
 import Album from './pages/Album';
@@ -9,13 +9,27 @@ import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      logado: false,
+    };
+  }
+
+  logar = () => {
+    this.setState((prevState) => ({ logado: !prevState.logado }));
+  };
+
   render() {
+    const { logado } = this.state;
     return (
       <div>
         <p>TrybeTunes</p>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/"><Login /></Route>
+            <Route exact path="/">
+              { logado ? <Redirect to="/search" /> : <Login logar={ this.logar } /> }
+            </Route>
             <Route path="/profile/edit"><ProfileEdit /></Route>
             <Route path="/album/:id"><Album /></Route>
             <Route path="/profile"><Profile /></Route>
