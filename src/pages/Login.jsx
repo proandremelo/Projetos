@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
-import Carregando from './Carregando';
+import Carregando from '../components/Carregando';
 
 const MIN_SIZE_INPUT = 3;
 
@@ -23,7 +23,7 @@ class Login extends React.Component {
     }
   };
 
-  handleClickInputLogin = async () => {
+  handleClickFormBtn = async () => {
     const { userName } = this.state;
     const { logar } = this.props;
     this.setState({ carregando: true });
@@ -51,7 +51,7 @@ class Login extends React.Component {
                   />
                   <button
                     type="button"
-                    onClick={ this.handleClickInputLogin }
+                    onClick={ this.handleClickFormBtn }
                     data-testid="login-submit-button"
                     disabled={ buttonDisabled }
                   >
