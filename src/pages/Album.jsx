@@ -14,6 +14,10 @@ class Album extends React.Component {
     };
   }
 
+  // handleFavoriteClick = (song) => {
+  //   console.log(song);
+  // };
+
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const musics = await getMusics(id);
@@ -23,6 +27,7 @@ class Album extends React.Component {
       albumName: collectionName,
       musics: musics.slice(1, musics.length),
     });
+    // console.log(musics);
   }
 
   render() {
@@ -39,6 +44,8 @@ class Album extends React.Component {
                 <MusicCard
                   trackname={ music.trackName }
                   previewURL={ music.previewUrl }
+                  trackId={ music.trackId }
+                  music={ { ...music } }
                 />
               </li>
             ))
