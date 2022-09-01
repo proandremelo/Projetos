@@ -3,6 +3,8 @@ import Proptypes from 'prop-types';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import Carregando from '../components/Carregando';
 
 class Album extends React.Component {
   constructor() {
@@ -11,46 +13,58 @@ class Album extends React.Component {
       artistName: '',
       albumName: '',
       musics: [],
+      favMusics: [],
+      loading: false,
     };
   }
 
-  // handleFavoriteClick = (song) => {
-  //   console.log(song);
-  // };
-
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
+    this.setState({ loading: true });
     const musics = await getMusics(id);
+    const favs = await getFavoriteSongs();
+    const favIds = favs.map((favSong) => favSong.trackId);
     const { artistName, collectionName } = musics[0];
     this.setState({
       artistName,
       albumName: collectionName,
       musics: musics.slice(1, musics.length),
+      favMusics: favIds,
+      loading: false,
     });
-    // console.log(musics);
+    // console.log(favs.map((favSong) => favSong.trackId));
   }
 
   render() {
-    const { artistName, albumName, musics } = this.state;
+    const { artistName, albumName, musics, favMusics, loading } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
-        <h1 data-testid="artist-name">{ artistName }</h1>
-        <h2 data-testid="album-name">{ albumName }</h2>
-        <ol>
-          {
-            musics.map((music) => (
-              <li key={ music.trackId }>
-                <MusicCard
-                  trackname={ music.trackName }
-                  previewURL={ music.previewUrl }
-                  trackId={ music.trackId }
-                  music={ { ...music } }
-                />
-              </li>
-            ))
-          }
-        </ol>
+        {
+          loading
+            ? <Carregando />
+            : (
+              <div>
+                <h1 data-testid="artist-name">{ artistName }</h1>
+                <h2 data-testid="album-name">{ albumName }</h2>
+                <ol>
+                  {
+                    musics.map((music) => (
+                      <li key={ music.trackId }>
+                        <MusicCard
+                          trackname={ music.trackName }
+                          previewURL={ music.previewUrl }
+                          trackId={ music.trackId }
+                          music={ { ...music } }
+                          favWhenMount={ favMusics.includes(music.trackId) }
+                        />
+                      </li>
+                    ))
+                  }
+                </ol>
+              </div>
+            )
+        }
       </div>
     );
   }

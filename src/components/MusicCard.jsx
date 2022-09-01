@@ -12,9 +12,13 @@ class MusicCard extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { favWhenMount } = this.props;
+    this.setState({ favorite: favWhenMount });
+  }
+
   handleFavChange = async ({ target }) => {
     const { music } = this.props;
-    // const { trackname, previewURL, trackId } = this.props;
     this.setState({ addFavLoading: true });
     if (target.checked) await addSong(music);
     this.setState((prevState) => (
@@ -64,6 +68,7 @@ MusicCard.propTypes = {
   trackname: Proptypes.string.isRequired,
   previewURL: Proptypes.string.isRequired,
   trackId: Proptypes.number.isRequired,
+  favWhenMount: Proptypes.bool.isRequired,
 };
 
 export default MusicCard;
