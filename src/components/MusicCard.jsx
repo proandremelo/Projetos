@@ -1,13 +1,13 @@
 import React from 'react';
 import Proptypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 import Carregando from './Carregando';
 
 class MusicCard extends React.Component {
   constructor() {
     super();
     this.state = {
-      addFavLoading: false,
+      favLoading: false,
       favorite: false,
     };
   }
@@ -19,20 +19,21 @@ class MusicCard extends React.Component {
 
   handleFavChange = async ({ target }) => {
     const { music } = this.props;
-    this.setState({ addFavLoading: true });
+    this.setState({ favLoading: true });
     if (target.checked) await addSong(music);
+    else await removeSong(music);
     this.setState((prevState) => (
-      { addFavLoading: false, favorite: !prevState.favorite }
+      { favLoading: false, favorite: !prevState.favorite }
     ));
   };
 
   render() {
-    const { addFavLoading, favorite } = this.state;
+    const { favLoading, favorite } = this.state;
     const { trackname, previewURL, trackId } = this.props;
     return (
       <div>
         {
-          addFavLoading
+          favLoading
             ? (
               <div>
                 <Carregando />
