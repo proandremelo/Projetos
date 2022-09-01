@@ -31,7 +31,7 @@ class App extends React.Component {
               { logado ? <Redirect to="/search" /> : <Login logar={ this.logar } /> }
             </Route>
             <Route path="/profile/edit"><ProfileEdit /></Route>
-            <Route path="/album/:id"><Album /></Route>
+            <Route path="/album/:id" render={ (props) => <Album { ...props } /> } />
             <Route path="/profile"><Profile /></Route>
             <Route path="/search"><Search /></Route>
             <Route path="/favorites"><Favorites /></Route>
