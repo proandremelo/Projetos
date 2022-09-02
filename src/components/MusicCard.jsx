@@ -18,10 +18,13 @@ class MusicCard extends React.Component {
   }
 
   handleFavChange = async ({ target }) => {
-    const { music } = this.props;
+    const { music, removeFromFavorites, position } = this.props;
     this.setState({ favLoading: true });
     if (target.checked) await addSong(music);
-    else await removeSong(music);
+    else {
+      await removeSong(music);
+      removeFromFavorites(position);
+    }
     this.setState((prevState) => (
       { favLoading: false, favorite: !prevState.favorite }
     ));
@@ -48,7 +51,7 @@ class MusicCard extends React.Component {
                 </audio>
                 <label htmlFor="favCheck">
                   <input
-                    name="favCheck"
+                    id="favCheck"
                     type="checkbox"
                     onChange={ this.handleFavChange }
                     data-testid={ `checkbox-music-${trackId}` }
@@ -70,6 +73,8 @@ MusicCard.propTypes = {
   previewURL: Proptypes.string.isRequired,
   trackId: Proptypes.number.isRequired,
   favWhenMount: Proptypes.bool.isRequired,
+  removeFromFavorites: Proptypes.func.isRequired,
+  position: Proptypes.number.isRequired,
 };
 
 export default MusicCard;
