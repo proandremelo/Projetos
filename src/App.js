@@ -13,15 +13,20 @@ class App extends React.Component {
     super();
     this.state = {
       logado: false,
+      perfilEditado: false,
     };
   }
 
   logar = () => {
-    this.setState((prevState) => ({ logado: !prevState.logado }));
+    this.setState({ logado: true });
+  };
+
+  editarProfile = () => {
+    this.setState({ perfilEditado: true });
   };
 
   render() {
-    const { logado } = this.state;
+    const { logado, perfilEditado } = this.state;
     return (
       <div>
         <p>TrybeTunes</p>
@@ -30,7 +35,13 @@ class App extends React.Component {
             <Route exact path="/">
               { logado ? <Redirect to="/search" /> : <Login logar={ this.logar } /> }
             </Route>
-            <Route path="/profile/edit"><ProfileEdit /></Route>
+            <Route path="/profile/edit">
+              {
+                perfilEditado
+                  ? <Redirect to="/profile" />
+                  : <ProfileEdit editarProfile={ this.editarProfile } />
+              }
+            </Route>
             <Route path="/album/:id" render={ (props) => <Album { ...props } /> } />
             <Route path="/profile"><Profile /></Route>
             <Route path="/search"><Search /></Route>
