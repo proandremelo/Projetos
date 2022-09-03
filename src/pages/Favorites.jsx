@@ -44,7 +44,7 @@ class Favorites extends React.Component {
                       <MusicCard
                         trackname={ music.trackName }
                         previewURL={ music.previewUrl }
-                        trackId={ music.trackId }
+                        trackId={ Number(music.trackId) }
                         music={ { ...music } }
                         favWhenMount
                         removeFromFavorites={ this.removeFromFavorites }

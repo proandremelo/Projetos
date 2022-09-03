@@ -81,6 +81,7 @@ class ProfileEdit extends React.Component {
                       value={ name }
                       data-testid="edit-input-name"
                       onChange={ this.handleChange }
+                      placeholder="Nome"
                     />
                   </label>
                   <label htmlFor="email">
@@ -91,6 +92,7 @@ class ProfileEdit extends React.Component {
                       value={ email }
                       data-testid="edit-input-email"
                       onChange={ this.handleChange }
+                      placeholder="Email"
                     />
                   </label>
                   <label htmlFor="description">
@@ -101,6 +103,7 @@ class ProfileEdit extends React.Component {
                       value={ description }
                       data-testid="edit-input-description"
                       onChange={ this.handleChange }
+                      placeholder="Descrição"
                     />
                   </label>
                   <label htmlFor="image">
@@ -111,6 +114,7 @@ class ProfileEdit extends React.Component {
                       value={ image }
                       data-testid="edit-input-image"
                       onChange={ this.handleChange }
+                      placeholder="URL da Imagem"
                     />
                   </label>
                   <button

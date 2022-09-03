@@ -17,11 +17,12 @@ class Album extends React.Component {
       loading: false,
     };
   }
-
+  
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     this.setState({ loading: true });
     const musics = await getMusics(id);
+    console.log(typeof musics[1].trackId);
     const favs = await getFavoriteSongs();
     const favIds = favs.map((favSong) => favSong.trackId);
     const { artistName, collectionName } = musics[0];
@@ -54,7 +55,7 @@ class Album extends React.Component {
                         <MusicCard
                           trackname={ music.trackName }
                           previewURL={ music.previewUrl }
-                          trackId={ music.trackId }
+                          trackId={ Number(music.trackId) }
                           music={ { ...music } }
                           favWhenMount={ favMusics.includes(music.trackId) }
                         />
