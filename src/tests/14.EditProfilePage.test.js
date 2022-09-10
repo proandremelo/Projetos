@@ -93,7 +93,7 @@ describe('14 - Crie o formulário de edição de perfil', () => {
 
       const nameInput = screen.getByTestId('edit-input-name');
       userEvent.clear(nameInput);
-      userEvent.type(nameInput, '');
+      // userEvent.type(nameInput, '');
 
       const emailInput = screen.getByTestId('edit-input-email');
       userEvent.clear(emailInput);
@@ -101,11 +101,11 @@ describe('14 - Crie o formulário de edição de perfil', () => {
 
       const descriptionInput = screen.getByTestId('edit-input-description');
       userEvent.clear(descriptionInput);
-      userEvent.type(descriptionInput, '');
+      // userEvent.type(descriptionInput, '');
 
       const imageInput = screen.getByTestId('edit-input-image');
       userEvent.clear(imageInput);
-      userEvent.type(imageInput, '');
+      // userEvent.type(imageInput, '');
 
       expect(saveButton).toBeDisabled();
 

@@ -1,0 +1,7 @@
+.title{
+  text-align: center;
+  padding: 0.8em;
+  margin: 0 0 4px 0;
+  background-color: hsl(120, 60%, 60%);
+  box-shadow: 0 4px 5px gray;
+}

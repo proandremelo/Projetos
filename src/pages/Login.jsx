@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
 import Carregando from '../components/Carregando';
+import logo from '../images/Tunes.png';
+import '../style/Login.css';
 
 const MIN_SIZE_INPUT = 3;
 
@@ -35,21 +37,23 @@ class Login extends React.Component {
   render() {
     const { buttonDisabled, carregando } = this.state;
     return (
-      <div data-testid="page-login">
+      <div className="main-login" data-testid="page-login">
         {
           carregando
             ? <Carregando />
             : (
-              <div>
-                <h1>Login</h1>
-                <form>
+              <div className="content-login">
+                <img className="logo-login" src={ logo } alt="logo-trybetunes" />
+                <form className="form-login" onSubmit={ this.handleClickFormBtn }>
                   <input
+                    className="input-login"
                     type="text"
                     placeholder="Nome"
                     onChange={ this.handleChangeInputLogin }
                     data-testid="login-name-input"
                   />
                   <button
+                    className="btn-login"
                     type="button"
                     onClick={ this.handleClickFormBtn }
                     data-testid="login-submit-button"

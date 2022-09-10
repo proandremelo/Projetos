@@ -23,7 +23,7 @@ class MusicCard extends React.Component {
     if (target.checked) await addSong(music);
     else {
       await removeSong(music);
-      if(removeFromFavorites) removeFromFavorites(position);      
+      if (removeFromFavorites) removeFromFavorites(position);
     }
     this.setState((prevState) => (
       { favLoading: false, favorite: !prevState.favorite }
@@ -73,8 +73,8 @@ MusicCard.propTypes = {
   previewURL: Proptypes.string.isRequired,
   trackId: Proptypes.number.isRequired,
   favWhenMount: Proptypes.bool.isRequired,
-  removeFromFavorites: Proptypes.func,
-  position: Proptypes.number,
+  removeFromFavorites: Proptypes.func.isRequired,
+  position: Proptypes.number.isRequired,
 };
 
 export default MusicCard;
