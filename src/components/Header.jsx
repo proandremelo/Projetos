@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
+
 import Carregando from './Carregando';
+import logo from '../images/Tunes.png';
+import pt_br from '../images/bandeirabrasil.png';
+import '../style/Header.css';
 
 class Header extends React.Component {
   constructor() {
@@ -26,11 +30,17 @@ class Header extends React.Component {
           carregando
             ? <Carregando />
             : (
-              <div>
-                <span data-testid="header-user-name">{ userName }</span>
-                <Link to="/search" data-testid="link-to-search">Search</Link>
-                <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
-                <Link to="/profile" data-testid="link-to-profile">Profile</Link>
+              <div className="main-header">
+                <div className="header-cima">
+                  <span data-testid="header-user-name">{ userName }</span>
+                  <img className="logo-header" src={ logo } alt="logo-trybetunes" />
+                  <input className="pt-br" type="image" src={ pt_br } alt="btn-pt-br" />
+                </div>
+                <div className="header-baixo">
+                  <Link to="/search" data-testid="link-to-search">Search</Link>
+                  <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
+                  <Link to="/profile" data-testid="link-to-profile">Profile</Link>
+                </div>
               </div>
             )
         }

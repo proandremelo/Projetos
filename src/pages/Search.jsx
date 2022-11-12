@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import Header from '../components/Header';
 import Carregando from '../components/Carregando';
+
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import '../style/Search.css';
 
 const MIN_SIZE_INPUT = 2;
 
@@ -45,59 +48,67 @@ class Search extends React.Component {
     return (
       <div data-testid="page-search">
         <Header />
-        <h1>Search</h1>
-        {
-          loading
-            ? <Carregando />
-            : (
-              <div>
-                <form>
-                  <input
-                    type="text"
-                    placeholder="Artista"
-                    data-testid="search-artist-input"
-                    onChange={ this.handleChange }
-                    value={ artist }
-                  />
-                  <button
-                    type="button"
-                    disabled={ buttonDisabled }
-                    data-testid="search-artist-button"
-                    onClick={ this.handleClick }
-                  >
-                    Pesquisar
-                  </button>
-                </form>
-                {
-                  searchRequested && (
-                    albuns.length > 0
-                      ? (
-                        <div>
-                          <h2>
-                            { `Resultado de álbuns de: ${artistNameInResult}` }
-                          </h2>
-                          <ul>
-                            {
-                              albuns.map((album) => (
-                                <li key={ album.collectionId }>
-                                  <Link
-                                    to={ `album/${album.collectionId}` }
-                                    data-testid={ `link-to-album-${album.collectionId}` }
-                                  >
-                                    {album.collectionName}
-                                  </Link>
-                                </li>
-                              ))
-                            }
-                          </ul>
-                        </div>
+        <div className="main-search">
+          {
+            loading
+              ? <Carregando />
+              : (
+                <div className="content-search">
+                  <div className="box1-search">
+                    <h1>Search</h1>
+                    <form onSubmit={ this.handleClick } className="form-search">
+                      <input
+                        type="text"
+                        placeholder="Artista"
+                        data-testid="search-artist-input"
+                        onChange={ this.handleChange }
+                        value={ artist }
+                      />
+                      <button
+                        type="button"
+                        disabled={ buttonDisabled }
+                        data-testid="search-artist-button"
+                        onClick={ this.handleClick }
+                      >
+                        Pesquisar
+                      </button>
+                    </form>
+                  </div>
+                  <div className="results-search">
+                    {
+                      searchRequested && (
+                        albuns.length > 0
+                          ? (
+                            <div>
+                              <h2>
+                                { `Resultado de álbuns de: ${artistNameInResult}` }
+                              </h2>
+                              <ul>
+                                {
+                                  albuns.map((album) => (
+                                    <li key={ album.collectionId }>
+                                      <Link
+                                        to={ `album/${album.collectionId}` }
+                                        data-testid={
+                                          `link-to-album-${album.collectionId}`
+                                        }
+                                      >
+                                        {album.collectionName}
+                                      </Link>
+                                    </li>
+                                  ))
+                                }
+                              </ul>
+                            </div>
+                          )
+                          : <h2>Nenhum álbum foi encontrado</h2>
                       )
-                      : <h2>Nenhum álbum foi encontrado</h2>
-                  )
-                }
-              </div>
-            )
-        }
+                    }
+                  </div>
+                </div>
+              )
+          }
+        </div>
       </div>
     );
   }
